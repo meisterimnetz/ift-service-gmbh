@@ -41,6 +41,9 @@
 - Direct CDN URL format: `https://images.pexels.com/photos/{ID}/pexels-photo-{ID}.jpeg?auto=compress&cs=tinysrgb&w=1200` (use `w=1920` for hero backgrounds)
 - Pexels license: commercial use allowed, no attribution required. Do not add credits to impressum.
 - Search queries: use the trade/craft in German + English (e.g. "HVAC technician", "Klimaanlage", "Dachdecker roof", "Maler painting wall")
+- **Always verify image IDs** match the trade before using. Fetch the Pexels photo URL and confirm the subject. A photo of food, landscapes, or unrelated objects must be rejected and replaced.
+- **Hero image approach:** Use the Pexels photo as the actual background (opacity: 1), then two overlays: first a fixed dark layer `rgba(0,0,0,0.45)` for guaranteed contrast, then a brand-color gradient `linear-gradient(135deg, rgba(darkPrimary,0.60), rgba(primary,0.50))` for the color wash. Never use a solid gradient hero with the image ghosted at low opacity (< 0.3) — looks flat and artificial.
+- **Contrast — mandatory:** White text must always be legible against the hero background. Never use a brand color as overlay if it's too light (perceived brightness > 100/255). Auto-darken light colors to ~35% of their original brightness before use. In addition, always add a fixed `rgba(0,0,0,0.45)` dark layer beneath the brand color overlay so text remains readable even if the brand color is very light or unexpected.
 - Add a dark gradient overlay on hero images: `position:relative` wrapper + `<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent)"></div>`
 - Use `object-fit:cover` and `object-position:center` on all `<img>` tags inside fixed-height containers
 
@@ -152,12 +155,25 @@ Jede Website bekommt diese 4 Effekte automatisch – kein Extra-Auftrag nötig:
 - Animationen nur auf `transform` und `opacity` – niemals `transition-all`.
 - Easing: immer `cubic-bezier(0.16,1,0.3,1)` (spring-style) für natürliches Gefühl.
 
+## Footer – Pflichtinhalt
+- Unten links: © Jahr + Firmenname des Kunden
+- Unten rechts (klein, dezent): `gebaut von <a href="https://meisterimnetz.de" target="_blank">Meister im Netz</a>`
+- Link öffnet in neuem Tab, Farbe: #6b7280 (grau), Underline, hover → weiß
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it
 - Do not stop after one screenshot pass
 - Do not use `transition-all`
 - Do not use default Tailwind blue/indigo as primary color
+
+## Batch Deploy (Netlify API)
+- Site names must be **deterministic** — derived from the company name via a hash suffix, never random. This ensures re-runs update the same site instead of creating duplicates.
+- Before creating a site, always check if it already exists (`GET /api/v1/sites?filter=all&name={siteName}`). If it exists, deploy directly to the existing site_id — no new create needed.
+- Deploys to existing sites: 5s delay between runs. New site creation: 25s delay to respect Netlify's rate limit (~3 creates/min on free plan).
+- Always save `site_id` in the results CSV so future runs can skip the lookup entirely.
+- Always include a `_headers` file in the ZIP with `Content-Type: text/html; charset=UTF-8` so Netlify serves HTML correctly.
+- Never re-deploy without checking for existing sites first — avoids duplicate site proliferation.
 
 ## GitHub & Deploy
 - Lokal entwickeln, lokal testen.
