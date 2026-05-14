@@ -35,6 +35,15 @@
 - If assets exist there, use them. Do not use placeholders where real assets are available.
 - If a logo is present, use it. If a color palette is defined, use those exact values — do not invent brand colors.
 
+## Images – Pexels (Automatic)
+- **Never ship a finished website with `placehold.co` placeholder images.** Always replace them with real photos before pushing to GitHub.
+- Use the Pexels free library: search via WebFetch/WebSearch on pexels.com. No API key required for browsing.
+- Direct CDN URL format: `https://images.pexels.com/photos/{ID}/pexels-photo-{ID}.jpeg?auto=compress&cs=tinysrgb&w=1200` (use `w=1920` for hero backgrounds)
+- Pexels license: commercial use allowed, no attribution required. Do not add credits to impressum.
+- Search queries: use the trade/craft in German + English (e.g. "HVAC technician", "Klimaanlage", "Dachdecker roof", "Maler painting wall")
+- Add a dark gradient overlay on hero images: `position:relative` wrapper + `<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent)"></div>`
+- Use `object-fit:cover` and `object-position:center` on all `<img>` tags inside fixed-height containers
+
 ## Anti-Generic Guardrails
 - **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Pick a custom brand color and derive from it.
 - **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
