@@ -69,12 +69,22 @@ tailwind.config = {
   .hero-reveal-d4 { animation-delay: 0.55s; }
   @keyframes heroIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Glowing pulse on primary CTA */
-  @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5), 0 4px 20px rgba(255,255,255,0.15); }
-    50% { box-shadow: 0 0 0 10px rgba(255,255,255,0), 0 4px 30px rgba(255,255,255,0.3); }
+  /* Shine sweep on primary CTA */
+  .btn-glow { position: relative; overflow: hidden; }
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 55%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+    transform: skewX(-18deg);
+    animation: shine 2.4s ease-in-out infinite;
+    pointer-events: none;
   }
-  .btn-glow { animation: pulseGlow 2.8s ease-in-out infinite; }
+  @keyframes shine {
+    0% { left: -100%; }
+    60%, 100% { left: 160%; }
+  }
 
   .card-shadow { box-shadow: 0 4px 24px -4px rgba(13,78,143,0.12), 0 1px 6px -1px rgba(13,78,143,0.06); }
   .btn-primary { background: #0d4e8f; color: #fff; padding: 14px 28px; border-radius: 8px; font-weight: 700; font-size: 15px; display: inline-block; text-decoration: none; transition: background 0.2s, transform 0.15s; }

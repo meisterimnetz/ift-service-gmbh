@@ -145,7 +145,7 @@ Jede Website bekommt diese 4 Effekte automatisch – kein Extra-Auftrag nötig:
 
 1. **Page fade-in:** `body { animation: pageFadeIn 0.5s ease both; }` – Seite blendet beim Laden sanft ein.
 2. **Hero slide-up:** Headline, Subtext und CTA-Buttons mit `hero-reveal`-Klassen (delay 0.1s / 0.25s / 0.4s / 0.55s) animiert reinfahren.
-3. **Glowing CTA-Button:** Den primären Haupt-CTA-Button im Hero mit `.btn-glow` versehen – pulst subtil mit `box-shadow`.
+3. **Shiny CTA-Button:** Den primären Haupt-CTA-Button im Hero mit `.btn-glow` versehen – ein weißer Lichtschein sweept alle 2.4s von links nach rechts über den Button (kein Pulsieren). Umsetzung via `::after` Pseudo-Element mit `linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent)` + `animation: shine`.
 4. **Scroll reveal:** Alle Cards, Sections und Content-Blöcke unterhalb der Folds bekommen `.reveal` (+ `.reveal-d1/d2/d3` für gestaffelte Delays). IntersectionObserver triggert `.visible`-Klasse beim Einrollen.
 5. **Counter-Animation:** Zahlen-Stats (z.B. 100%, 24h, 50+) mit `data-counter="[Zahl]" data-suffix="[%/+]"` versehen – zählen beim Sichtbarwerden hoch (Ease-out, ~1.4s).
 6. **Card-hover lift:** Service- und USP-Karten mit `transform: translateY(-8px)` + brand-farbigem `box-shadow` beim Hover.
